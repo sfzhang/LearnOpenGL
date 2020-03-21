@@ -237,25 +237,41 @@ int main()
     // Fragment Shader
     const char *fs_glsl[] = {
         "#version 460 core\n"
+        "struct Material {\n"
+        "    vec3 ambient;\n"
+        "    vec3 diffuse;\n"
+        "    vec3 specular;\n"
+        "    float shininess;\n"
+        "};"
+        "struct Light {\n"
+        "    vec3 pos;\n"
+        "    vec3 ambient;\n"
+        "    vec3 diffuse;\n"
+        "    vec3 specular;\n"
+        "};"
         "in vec3 pos_nor_vec;\n"
         "in vec3 frag_pos;\n"
         "out vec4 frag_color;\n"
         "uniform vec3 object_color;\n"
-        "uniform vec3 light_color;\n"
-        "uniform vec3 light_pos;\n"
         "uniform vec3 view_pos;\n"
+        "uniform Material material;\n"
+        "uniform Light light;\n"
         "void main() {\n"
-        "    float ambient_strength = 0.1;\n"
-        "    float specular_strength = 0.5;\n"
-        "    vec3 ambient = ambient_strength * light_color;\n"
+        "    // Ambient\n"
+        "    vec3 ambient = light.ambient* material.ambient;\n"
+        ""
+        "    // Diffuse\n"
         "    vec3 pos_nv = normalize(pos_nor_vec);\n"
-        "    vec3 light_nv = normalize(light_pos - frag_pos);\n"
+        "    vec3 light_nv = normalize(light.pos - frag_pos);\n"
         "    float diff = max(dot(pos_nv, light_nv), 0.0f);\n"
-        "    vec3 diffuse = diff * light_color;\n"
+        "    vec3 diffuse = light.diffuse * (diff * material.diffuse);\n"
+        ""
+        "    // Specular\n"
         "    vec3 view_nv = normalize(view_pos - frag_pos);\n"
         "    vec3 reflect_nv = normalize(reflect(-light_nv, pos_nv));\n"
-        "    float spec = pow(max(dot(view_nv, reflect_nv), 0.0f), 32);\n"
-        "    vec3 specular = specular_strength * spec * light_color;\n"
+        "    float spec = pow(max(dot(view_nv, reflect_nv), 0.0f), material.shininess);\n"
+        "    vec3 specular = light.specular * (spec * material.specular);\n"
+        ""
         "    vec3 result = (ambient + diffuse + specular) * object_color;\n"
         "    frag_color = vec4(result, 1.0f);\n"
         "}\n"
@@ -325,14 +341,25 @@ int main()
         glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-        g_light_pos.x = 1.2f * sin(glfwGetTime());
-        g_light_pos.y = 1.2f * cos(glfwGetTime());
+        glm::vec3 light_color;
+        light_color.x = sin(glfwGetTime() * 2.0f);
+        light_color.y = sin(glfwGetTime() * 0.7f);
+        light_color.z = sin(glfwGetTime() * 1.3f);
+
+        glm::vec3 diffuse = light_color * glm::vec3(0.5f);
+        glm::vec3 ambient = diffuse * glm::vec3(0.2f);
 
         glUseProgram(shader_program);
         glUniform3f(glGetUniformLocation(shader_program, "object_color"), 1.0f, 0.5f, 0.32f);
-        glUniform3f(glGetUniformLocation(shader_program, "light_color"), 1.0f, 1.0f, 1.0f);
-        glUniform3f(glGetUniformLocation(shader_program, "light_pos"), g_light_pos.x, g_light_pos.y, g_light_pos.z);
         glUniform3f(glGetUniformLocation(shader_program, "view_pos"), cam_pos.x, cam_pos.y, cam_pos.z);
+        glUniform3f(glGetUniformLocation(shader_program, "material.ambient"), 1.0f, 0.5f, 0.31f);
+        glUniform3f(glGetUniformLocation(shader_program, "material.diffuse"), 1.0f, 0.5f, 0.31f);
+        glUniform3f(glGetUniformLocation(shader_program, "material.specular"), 0.5f, 0.5f, 0.5f);
+        glUniform1f(glGetUniformLocation(shader_program, "material.shininess"), 32.0f);
+        glUniform3f(glGetUniformLocation(shader_program, "light.pos"), g_light_pos.x, g_light_pos.y, g_light_pos.z);
+        glUniform3f(glGetUniformLocation(shader_program, "light.ambient"), ambient.x, ambient.y, ambient.z);
+        glUniform3f(glGetUniformLocation(shader_program, "light.diffuse"), diffuse.x, diffuse.y, diffuse.z);
+        glUniform3f(glGetUniformLocation(shader_program, "light.specular"), 1.0f, 1.0f, 1.0f);
 
         float radius = 2.0f;
         glm::mat4 view = glm::mat4(1.0f);
