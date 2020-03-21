@@ -133,7 +133,7 @@ int main()
     glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
     glfwSetCursorPosCallback(window, mouse_callback);
     glfwSetScrollCallback(window, scroll_callback);
-    //glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+    glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
     glEnable(GL_DEPTH_TEST);
 
     float vertices[] = {
@@ -234,7 +234,10 @@ int main()
         "uniform vec3 object_color;\n"
         "uniform vec3 light_color;\n"
         "void main() {\n"
-        "    frag_color = vec4(light_color * object_color, 1.0f);\n"
+        "    float ambient_strength = 0.1;\n"
+        "    vec3 ambient = ambient_strength * light_color;\n"
+        "    vec3 result = ambient * object_color;\n"
+        "    frag_color = vec4(result, 1.0f);\n"
         "}\n"
     };
 

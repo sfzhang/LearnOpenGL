@@ -133,52 +133,52 @@ int main()
     glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
     glfwSetCursorPosCallback(window, mouse_callback);
     glfwSetScrollCallback(window, scroll_callback);
-    //glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+    glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
     glEnable(GL_DEPTH_TEST);
 
     float vertices[] = {
         // pos
-        -0.5f, -0.5f, -0.5f,
-         0.5f, -0.5f, -0.5f,
-         0.5f,  0.5f, -0.5f,
-         0.5f,  0.5f, -0.5f,
-        -0.5f,  0.5f, -0.5f,
-        -0.5f, -0.5f, -0.5f,
+        -0.5f, -0.5f, -0.5f,  0.0f,  0.0f, -1.0f,
+         0.5f, -0.5f, -0.5f,  0.0f,  0.0f, -1.0f,
+         0.5f,  0.5f, -0.5f,  0.0f,  0.0f, -1.0f,
+         0.5f,  0.5f, -0.5f,  0.0f,  0.0f, -1.0f,
+        -0.5f,  0.5f, -0.5f,  0.0f,  0.0f, -1.0f,
+        -0.5f, -0.5f, -0.5f,  0.0f,  0.0f, -1.0f,
     
-        -0.5f, -0.5f,  0.5f,
-         0.5f, -0.5f,  0.5f,
-         0.5f,  0.5f,  0.5f,
-         0.5f,  0.5f,  0.5f,
-        -0.5f,  0.5f,  0.5f,
-        -0.5f, -0.5f,  0.5f,
+        -0.5f, -0.5f,  0.5f,  0.0f,  0.0f,  1.0f,
+         0.5f, -0.5f,  0.5f,  0.0f,  0.0f,  1.0f,
+         0.5f,  0.5f,  0.5f,  0.0f,  0.0f,  1.0f,
+         0.5f,  0.5f,  0.5f,  0.0f,  0.0f,  1.0f,
+        -0.5f,  0.5f,  0.5f,  0.0f,  0.0f,  1.0f,
+        -0.5f, -0.5f,  0.5f,  0.0f,  0.0f,  1.0f,
     
-        -0.5f,  0.5f,  0.5f,
-        -0.5f,  0.5f, -0.5f,
-        -0.5f, -0.5f, -0.5f,
-        -0.5f, -0.5f, -0.5f,
-        -0.5f, -0.5f,  0.5f,
-        -0.5f,  0.5f,  0.5f,
+        -0.5f,  0.5f,  0.5f, -1.0f,  0.0f,  0.0f,
+        -0.5f,  0.5f, -0.5f, -1.0f,  0.0f,  0.0f,
+        -0.5f, -0.5f, -0.5f, -1.0f,  0.0f,  0.0f,
+        -0.5f, -0.5f, -0.5f, -1.0f,  0.0f,  0.0f,
+        -0.5f, -0.5f,  0.5f, -1.0f,  0.0f,  0.0f,
+        -0.5f,  0.5f,  0.5f, -1.0f,  0.0f,  0.0f,
     
-         0.5f,  0.5f,  0.5f,
-         0.5f,  0.5f, -0.5f,
-         0.5f, -0.5f, -0.5f,
-         0.5f, -0.5f, -0.5f,
-         0.5f, -0.5f,  0.5f,
-         0.5f,  0.5f,  0.5f,
+         0.5f,  0.5f,  0.5f,  1.0f,  0.0f,  0.0f,
+         0.5f,  0.5f, -0.5f,  1.0f,  0.0f,  0.0f,
+         0.5f, -0.5f, -0.5f,  1.0f,  0.0f,  0.0f,
+         0.5f, -0.5f, -0.5f,  1.0f,  0.0f,  0.0f,
+         0.5f, -0.5f,  0.5f,  1.0f,  0.0f,  0.0f,
+         0.5f,  0.5f,  0.5f,  1.0f,  0.0f,  0.0f,
     
-        -0.5f, -0.5f, -0.5f,
-         0.5f, -0.5f, -0.5f,
-         0.5f, -0.5f,  0.5f,
-         0.5f, -0.5f,  0.5f,
-        -0.5f, -0.5f,  0.5f,
-        -0.5f, -0.5f, -0.5f,
+        -0.5f, -0.5f, -0.5f,  0.0f, -1.0f,  0.0f,
+         0.5f, -0.5f, -0.5f,  0.0f, -1.0f,  0.0f,
+         0.5f, -0.5f,  0.5f,  0.0f, -1.0f,  0.0f,
+         0.5f, -0.5f,  0.5f,  0.0f, -1.0f,  0.0f,
+        -0.5f, -0.5f,  0.5f,  0.0f, -1.0f,  0.0f,
+        -0.5f, -0.5f, -0.5f,  0.0f, -1.0f,  0.0f,
     
-        -0.5f,  0.5f, -0.5f,
-         0.5f,  0.5f, -0.5f,
-         0.5f,  0.5f,  0.5f,
-         0.5f,  0.5f,  0.5f,
-        -0.5f,  0.5f,  0.5f,
-        -0.5f,  0.5f, -0.5f,
+        -0.5f,  0.5f, -0.5f,  0.0f,  1.0f,  0.0f,
+         0.5f,  0.5f, -0.5f,  0.0f,  1.0f,  0.0f,
+         0.5f,  0.5f,  0.5f,  0.0f,  1.0f,  0.0f,
+         0.5f,  0.5f,  0.5f,  0.0f,  1.0f,  0.0f,
+        -0.5f,  0.5f,  0.5f,  0.0f,  1.0f,  0.0f,
+        -0.5f,  0.5f, -0.5f,  0.0f,  1.0f,  0.0f,
     };
 
     // VAO
@@ -191,26 +191,33 @@ int main()
     glGenBuffers(1, &vbo);
     glBindBuffer(GL_ARRAY_BUFFER, vbo);
     glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
-    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0);
+    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(float), (void*)0);
+    glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(float), (void*)(3 * sizeof(float)));
     glEnableVertexAttribArray(0);
+    glEnableVertexAttribArray(1);
 
     // light VAO
     unsigned int light_vao;
     glGenVertexArrays(1, &light_vao);
     glBindVertexArray(light_vao);
     glBindBuffer(GL_ARRAY_BUFFER, vbo);
-    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0);
+    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(float), (void*)0);
     glEnableVertexAttribArray(0);
 
     // Vertex Shader
     const char *vs_glsl[] = {
         "#version 460 core\n"
         "layout (location = 0) in vec3 pos;\n"
+        "layout (location = 1) in vec3 pos_vec;\n"
 		"uniform mat4 model;\n"
         "uniform mat4 view;\n"
         "uniform mat4 projection;\n"
+        "out vec3 pos_nor_vec;\n"
+        "out vec3 frag_pos;\n"
         "void main() {\n"
         "    gl_Position = projection * view * model * vec4(pos, 1.0);\n"
+        "    pos_nor_vec = pos_vec;\n"
+        "    frag_pos = vec3(model * vec4(pos, 1.0));\n"
         "}\n"
     };
 
@@ -230,11 +237,27 @@ int main()
     // Fragment Shader
     const char *fs_glsl[] = {
         "#version 460 core\n"
+        "in vec3 pos_nor_vec;\n"
+        "in vec3 frag_pos;\n"
         "out vec4 frag_color;\n"
         "uniform vec3 object_color;\n"
         "uniform vec3 light_color;\n"
+        "uniform vec3 light_pos;\n"
+        "uniform vec3 view_pos;\n"
         "void main() {\n"
-        "    frag_color = vec4(light_color * object_color, 1.0f);\n"
+        "    float ambient_strength = 0.1;\n"
+        "    float specular_strength = 0.5;\n"
+        "    vec3 ambient = ambient_strength * light_color;\n"
+        "    vec3 pos_nv = normalize(pos_nor_vec);\n"
+        "    vec3 light_nv = normalize(light_pos - frag_pos);\n"
+        "    float diff = max(dot(pos_nv, light_nv), 0.0f);\n"
+        "    vec3 diffuse = diff * light_color;\n"
+        "    vec3 view_nv = normalize(view_pos - frag_pos);\n"
+        "    vec3 reflect_nv = normalize(reflect(-light_nv, pos_nv));\n"
+        "    float spec = pow(max(dot(view_nv, reflect_nv), 0.0f), 32);\n"
+        "    vec3 specular = specular_strength * spec * light_color;\n"
+        "    vec3 result = (ambient + diffuse + specular) * object_color;\n"
+        "    frag_color = vec4(result, 1.0f);\n"
         "}\n"
     };
 
@@ -305,6 +328,8 @@ int main()
         glUseProgram(shader_program);
         glUniform3f(glGetUniformLocation(shader_program, "object_color"), 1.0f, 0.5f, 0.32f);
         glUniform3f(glGetUniformLocation(shader_program, "light_color"), 1.0f, 1.0f, 1.0f);
+        glUniform3f(glGetUniformLocation(shader_program, "light_pos"), g_light_pos.x, g_light_pos.y, g_light_pos.z);
+        glUniform3f(glGetUniformLocation(shader_program, "view_pos"), cam_pos.x, cam_pos.y, cam_pos.z);
 
         float radius = 2.0f;
         glm::mat4 view = glm::mat4(1.0f);
